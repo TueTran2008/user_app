@@ -114,9 +114,6 @@ struct led_unit_cfg
  *			For monochrome LEDs, the vararg will be ignored.
  *			Using a LED unit assigned to another core will do nothing and return 0.
  * @return		0 on success
- *			-EPERM if the module has not been initialised
- *			-EINVAL if the color argument is illegal
- *			Other errors from underlying drivers.
  */
 int app_led_blink(uint8_t led_unit, uint8_t on_off_duration, uint32_t blink_times);
 
@@ -131,9 +128,6 @@ int app_led_blink(uint8_t led_unit, uint8_t on_off_duration, uint32_t blink_time
  *			For monochrome LEDs, the vararg will be ignored.
 *			Using a LED unit assigned to another core will do nothing and return 0.
  * @return		0 on success
- *			-EPERM if the module has not been initialised
- *			-EINVAL if the color argument is illegal
- *			Other errors from underlying drivers.
  */
 int app_led_on(uint8_t led_unit, uint32_t turn_on_time, ...);
 
@@ -145,9 +139,6 @@ int app_led_on(uint8_t led_unit, uint32_t turn_on_time, ...);
  *
  * @param led_unit	Selected LED unit. Defines are located in board.h
  * @return		0 on success
- *			-EPERM if the module has not been initialised
- *			-EINVAL if the color argument is illegal
- *			Other errors from underlying drivers.
  */
 int app_led_off(uint8_t led_unit);
 
@@ -157,17 +148,17 @@ int app_led_off(uint8_t led_unit);
  * @note This will parse the .dts files and configure all LEDs.
  *
  * @return	0 on success
- *		-EPERM if already initialsed
- *		-ENXIO if a LED is missing unit number in dts
- *		-ENODEV if a LED is missing color identifier
  */
 int app_led_init(gpio_callback_t p_callback, struct led_unit_cfg *p_cfg, uint32_t leds_number);
-/**
- * @brief Call this in a timer handle or tick 1ms
- *
- * @note This will parse the .dts files and configure all LEDs.
- *
- */
+/*
+ * @FunctionName  	: app_led_blink_handler 
+ * @Return         	: None
+ * @Parameters 		: None
+ * @Author		    : TueTD
+ * @Datecreated	    : 01/11/2022
+ * @Description		: Led blink polling
+ * @Notes		    : Call this in tick 1ms task 
+ *******************************************************************************/
 void app_led_blink_handler(void);
 
 

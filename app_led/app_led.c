@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "app_led.h"
-#include "nrf_log.h"
 /*This is for header file*/
 
 
@@ -199,7 +198,6 @@ int app_led_init(gpio_callback_t p_callback, struct led_unit_cfg *p_cfg, uint32_
     }
     for(uint8_t i = 0; i < leds_number; i++)
     {
-        //led_units[i] = p_led_cfg[i];
         config_led_monochrome(p_cfg[i], i);
         app_led_off(i);
     }
