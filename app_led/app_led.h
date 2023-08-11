@@ -8,6 +8,7 @@
 #define _LED_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define LED_APP_RGB 0
 #define LED_NET_RGB 1
@@ -66,12 +67,14 @@ typedef uint8_t (*p_init_gpio_output)(enum gpio_pull_cfg pull_cfg, uint8_t led_p
 typedef void (*p_func_set_gpio)(uint32_t port_num,uint32_t pin_num, uint8_t state);
 typedef void (*p_func_reset_gpio)(void);
 typedef void (*p_function_timer_expire_callback)(void *args);
+typedef void(*p_function_led_done_callback)(void *args);
 typedef struct app_led
 {
     /* data */
     p_func_set_gpio set_gpio;
     p_func_reset_gpio reset_gpio;
-    p_function_timer_expire_callback timer_expire;
+    //p_function_timer_expire_callback timer_expire;
+    
 }gpio_callback_t;
 
 /*This is for . file*/
@@ -89,6 +92,7 @@ struct user_config
     uint32_t blink_times;
     uint32_t on_times;
     enum led_color color;
+    p_function_led_done_callback led_done;
 };
 
 struct led_unit_cfg
@@ -99,8 +103,6 @@ struct led_unit_cfg
     char *led_name;
     enum led_type unit_type;
     struct user_config user_cfg;
-    
-
 };
 
 /**
